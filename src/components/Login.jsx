@@ -2,13 +2,17 @@ import React from "react";
 import { useFirebase } from "react-redux-firebase";
 import { Card, Form, Button, Container, Row, Col, Alert  } from "react-bootstrap";
 import { useForm } from "react-hook-form";
+import { useHistory } from "react-router-dom";
 
 export default function Login() {
   const firebase = useFirebase();
-  const { register, handleSubmit, watch, errors } = useForm();
-
+  const { register, handleSubmit, errors } = useForm();
+  let history = useHistory();
   
-  const onSubmit = data => console.log(data);
+  const onSubmit = async (data) => {
+    await firebase.auth().signInWithEmailAndPassword(data.email, data.password)
+    history.push("/home");
+  };
 
   return (
     <Container>
@@ -18,8 +22,12 @@ export default function Login() {
             <Card.Body>
               <Form  onSubmit={handleSubmit(onSubmit)}>
                 <Form.Group>
-                  <Form.Label>usuario</Form.Label>
-                  <Form.Control name="email" ref={register({ required: true })} type="email" placeholder="Usuario" />
+                  <Form.Label>Usuario</Form.Label>
+                  <Form.Control 
+                  name="email" 
+                  ref={register({ required: true })} 
+                  type="email" 
+                  placeholder="Usuario" />
                   <Form.Text className="text-muted">
                   {errors.email && <Alert variant="danger">Este campo es requerido</Alert>}
                   </Form.Text>
@@ -27,7 +35,11 @@ export default function Login() {
 
                 <Form.Group>
                   <Form.Label>Contraseña</Form.Label>
-                  <Form.Control name="password" ref={register} type="password"  />
+                  <Form.Control 
+                  name="password" 
+                  ref={register({ required: true })}  
+                  type="password" 
+                  />
                   <Form.Text className="text-muted">
                   {errors.password && <Alert variant="danger">Este campo es requerido</Alert>}
                   </Form.Text>

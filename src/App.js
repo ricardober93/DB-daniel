@@ -7,7 +7,7 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore"; // <- needed if using firestore
 // import 'firebase/functions' // <- needed if using httpsCallable
-import { createStore, combineReducers, compose } from "redux";
+import { createStore, combineReducers } from "redux";
 import {
   ReactReduxFirebaseProvider, firebaseReducer
 } from "react-redux-firebase";
@@ -21,14 +21,14 @@ import Home from "./components/Home";
 
 // Nabvar
 import Nabvar from "./components/Nabvar";
+// detalle Pozo
+import PozoDetalle from "./components/PozoDetalle"
+
 // router
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
-  useRouteMatch,
-  useParams,
 } from "react-router-dom";
 
 // Helper para asegurar rutas
@@ -85,7 +85,8 @@ function App() {
           <Nabvar></Nabvar>
           <Switch>
             <Route path="/login" component={Login}/>
-            <Route path="/" component={UserIsAuthenticated(Home)} />
+            <Route exact path="/" component={UserIsAuthenticated(Home)} />
+            <Route exact path="/pozo/:id" component={UserIsAuthenticated(PozoDetalle)} />
           </Switch>
         </Router>
       </ReactReduxFirebaseProvider>
