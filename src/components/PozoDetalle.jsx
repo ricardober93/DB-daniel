@@ -12,7 +12,7 @@ export default function PozoDetalle() {
   const Pozo = useSelector(
     ({ firestore: { data } }) => data.Pozos && data.Pozos[id]
   );
-  console.log(Pozo)
+
   return (
     <Container>
       { Pozo ? 

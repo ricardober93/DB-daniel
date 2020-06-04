@@ -23,7 +23,10 @@ import Home from "./components/Home";
 import Nabvar from "./components/Nabvar";
 // detalle Pozo
 import PozoDetalle from "./components/PozoDetalle"
-
+// Agregar nuevo Pozo
+import NuevoPozo from "./components/NuevoPozo";
+// Editar Pozo
+import Edit from "./components/Edit";
 // router
 import {
   BrowserRouter as Router,
@@ -87,6 +90,8 @@ function App() {
             <Route path="/login" component={Login}/>
             <Route exact path="/" component={UserIsAuthenticated(Home)} />
             <Route exact path="/pozo/:id" component={UserIsAuthenticated(PozoDetalle)} />
+            <Route exact path="/nuevo/pozo" component={UserIsAuthenticated(NuevoPozo)} />
+            <Route exact path="/edit/:id" component={UserIsAuthenticated(Edit)} />
           </Switch>
         </Router>
       </ReactReduxFirebaseProvider>
