@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useFirestoreConnect } from "react-redux-firebase";
 import { Card, Container } from "react-bootstrap";
@@ -26,6 +26,7 @@ export default function PozoDetalle() {
             <p>¿Logueado?: { Pozo.Logueado}</p>
             <p>Inicio de la perforación: { Pozo.inicioPerforacion}</p>
             <p>Equipo de la perforación: { Pozo.EquipoPerforacion}</p>
+            <p>Codigo del Equipo: { Pozo.codigoEquipo}</p>
             <p>Fecha de Fin de la perforación: { Pozo.finPerforacion}</p>
             <p>Entregado: { Pozo.Entregado}</p>
             <p>Perforación Terminada: { Pozo.perforado}</p>
@@ -33,8 +34,8 @@ export default function PozoDetalle() {
             <p>Archivo: { Pozo.archivo}</p>
 
           </Card.Text>
-          <Card.Link href="#">Devolver</Card.Link>
-          <Card.Link href="#">Editar</Card.Link>
+          <Card.Link> <Link to="/" >Devolver</Link> </Card.Link>
+          <Card.Link> <Link  to={"/edit/"+Pozo.id} > Editar </Link></Card.Link>
         </Card.Body>
       </Card>
         :

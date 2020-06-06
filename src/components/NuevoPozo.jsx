@@ -71,6 +71,23 @@ export default function NuevoPozo() {
                     <option>Ly 34 Serviminas</option>
                     <option>Ly 38 Geominas</option>
                     <option>Ly 38 Serviminas</option>
+                    <option>Ly 44 Serviminas</option>
+                    <option>Sprayguer</option>
+                    <option>Ly 38 Diesel</option>
+                    <option>Hydracore</option>
+                    </Form.Control>
+                </Form.Group>
+                <Form.Group >
+                    <Form.Label>Equipo Perforacion</Form.Label>
+                    <Form.Control as="select" ref={register()} name="codigoEquipo">
+                    <option>922969</option>
+                    <option>922970</option>
+                    <option>922971</option>
+                    <option>922972</option>
+                    <option>923937</option>
+                    <option>924377</option>
+                    <option>924316</option>
+                    <option>924476</option>
                     </Form.Control>
                 </Form.Group>
                 <Form.Group >
