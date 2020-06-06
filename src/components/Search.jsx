@@ -1,11 +1,17 @@
 import React from 'react'
 import {Form,FormControl, Button} from 'react-bootstrap/'
-export default function Search() {
+
+export default function Search({busquedaInput}) {
+
+  const ObtenerBusqueda = (e) =>{
+    e.preventDefault()
+    busquedaInput(e.target.value)
+  }
     return (
       <>
-        <Form  inline className="mb-3">
-          <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-          <Button variant="outline-success">Search</Button>
+        <Form inline className="mb-3">
+          <FormControl onChange={ObtenerBusqueda} type="text" placeholder="buscar.." className="mr-sm-2" name="search" />
+          <Button variant="outline-success">Buscar</Button>
        </Form>
       </>
     )

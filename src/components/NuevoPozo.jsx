@@ -36,20 +36,6 @@ export default function NuevoPozo() {
                     {errors.IdPozo && <Alert variant="danger">Este campo es requerido</Alert>}
                     </Form.Text>
                 </Form.Group>
-                <Form.Group>
-                    <Form.Label>Inicio de la Perforacion</Form.Label>
-                    <Form.Control  name="metrosPerforado" type="text" ref={register({ required: true})}/>
-                    <Form.Text className="text-muted">
-                    {errors.metrosPerforado && <Alert variant="danger">Este campo es requerido</Alert>}
-                    </Form.Text>
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Metros de la Perforacion</Form.Label>
-                    <Form.Control  name="inicioPerforacion" type="date" ref={register({ required: true})}/>
-                    <Form.Text className="text-muted">
-                    {errors.inicioPerforacion && <Alert variant="danger">Este campo es requerido</Alert>}
-                    </Form.Text>
-                </Form.Group>
                 <Form.Group >
                     <Form.Label>¿Perforación Finalizada?</Form.Label>
                     <Form.Control as="select" ref={register()} name="perforado">
@@ -57,12 +43,19 @@ export default function NuevoPozo() {
                     <option>No</option>
                     </Form.Control>
                 </Form.Group>
-                <Form.Group >
-                    <Form.Label>¿Logueado?</Form.Label>
-                    <Form.Control as="select" ref={register()} name="Logueado">
-                    <option>Si</option>
-                    <option>No</option>
-                    </Form.Control>
+                <Form.Group>
+                    <Form.Label>Metros de la Perforacion</Form.Label>
+                    <Form.Control  name="metrosPerforado" type="text" ref={register({ required: true})}/>
+                    <Form.Text className="text-muted">
+                    {errors.metrosPerforado && <Alert variant="danger">Este campo es requerido</Alert>}
+                    </Form.Text>
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>Inicio de la Perforacion</Form.Label>
+                    <Form.Control  name="inicioPerforacion" type="date" ref={register({ required: true})}/>
+                    <Form.Text className="text-muted">
+                    {errors.inicioPerforacion && <Alert variant="danger">Este campo es requerido</Alert>}
+                    </Form.Text>
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Fin de perforación</Form.Label>
@@ -70,13 +63,6 @@ export default function NuevoPozo() {
                     <Form.Text className="text-muted">
                     {errors.finPerforacion && <Alert variant="danger">Este campo es requerido</Alert>}
                     </Form.Text>
-                </Form.Group>
-                <Form.Group >
-                    <Form.Label>¿Entregado?</Form.Label>
-                    <Form.Control as="select" ref={register()} name="Entregado">
-                    <option>Si</option>
-                    <option>No</option>
-                    </Form.Control>
                 </Form.Group>
                 <Form.Group >
                     <Form.Label>Equipo Perforacion</Form.Label>
@@ -87,6 +73,22 @@ export default function NuevoPozo() {
                     <option>Ly 38 Serviminas</option>
                     </Form.Control>
                 </Form.Group>
+                <Form.Group >
+                    <Form.Label>¿Logueado?</Form.Label>
+                    <Form.Control as="select" ref={register()} name="Logueado">
+                    <option>Si</option>
+                    <option>No</option>
+                    </Form.Control>
+                </Form.Group>
+              
+                <Form.Group >
+                    <Form.Label>¿Entregado?</Form.Label>
+                    <Form.Control as="select" ref={register()} name="Entregado">
+                    <option>Si</option>
+                    <option>No</option>
+                    </Form.Control>
+                </Form.Group>
+               
                 <Form.Group>
                     <Form.Label>Fecha de Entrega</Form.Label>
                     <Form.Control  name="fechaEntregado" type="date" ref={register()}/>

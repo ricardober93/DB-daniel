@@ -7,33 +7,39 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 
 // Search
-import Search from "./Search";
+// import Search from "./Search";
 
 export default function Home() {
+
   const firestore = useFirestore()
+
   useFirestoreConnect([
-    { collection: "Pozos" }, // or 'todos'
+    { collection: "Pozos" }, // or 'todos'   
   ]);
+
+
   const Pozos = useSelector((state) => state.firestore.ordered.Pozos);
 
   const DeletePozo = (id) => {
     return firestore.collection('Pozos').doc(id).delete()
   }
 
-
+  // const busquedaInput = (pozo, e) => {
+  //  setbusquedaPozo(pozo)
+  // }
   return (
     <>
       <Container>
         <h2>Base de Datos Pozos</h2>
          {Pozos ? <p>{Pozos.length} Guardados</p> : <span>No hay pozos</span>}
         <main className="mt-5">
-          <div className="d-flex justify-content-around">
-            <Search />
+          <div className="d-flex justify-content-end">
+            {/* <Search busquedaInput={busquedaInput}/> */}
             <div className="p-2">
             <Button variant="primary"  ><Link className="text-white" to="/nuevo/pozo">Nuevo Pozo</Link></Button>
             </div>
           </div>
-          <Table striped bordered hover >
+          <Table striped bordered hover xs={8}  md={10}>
             <thead>
               <tr>
                 <th>ID</th>
