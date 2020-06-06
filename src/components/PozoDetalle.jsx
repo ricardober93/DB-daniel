@@ -23,6 +23,7 @@ export default function PozoDetalle() {
             Metros Perforados: {Pozo.metrosPerforado} Mtrs
           </Card.Subtitle>
           <Card.Text>
+            <p>Frente: { Pozo.frente}</p>
             <p>¿Logueado?: { Pozo.Logueado}</p>
             <p>Inicio de la perforación: { Pozo.inicioPerforacion}</p>
             <p>Equipo de la perforación: { Pozo.EquipoPerforacion}</p>

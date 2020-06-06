@@ -51,6 +51,13 @@ export default function NuevoPozo() {
                     </Form.Text>
                 </Form.Group>
                 <Form.Group>
+                    <Form.Label>Frente de la Perforacion</Form.Label>
+                    <Form.Control  name="frente" type="text" ref={register()}/>
+                    <Form.Text className="text-muted">
+                    {errors.frente && <Alert variant="danger">Este campo es requerido</Alert>}
+                    </Form.Text>
+                </Form.Group>
+                <Form.Group>
                     <Form.Label>Inicio de la Perforacion</Form.Label>
                     <Form.Control  name="inicioPerforacion" type="date" ref={register({ required: true})}/>
                     <Form.Text className="text-muted">
@@ -78,7 +85,7 @@ export default function NuevoPozo() {
                     </Form.Control>
                 </Form.Group>
                 <Form.Group >
-                    <Form.Label>Equipo Perforacion</Form.Label>
+                    <Form.Label>Codigo de Equipo</Form.Label>
                     <Form.Control as="select" ref={register()} name="codigoEquipo">
                     <option>922969</option>
                     <option>922970</option>
@@ -96,8 +103,7 @@ export default function NuevoPozo() {
                     <option>Si</option>
                     <option>No</option>
                     </Form.Control>
-                </Form.Group>
-              
+                </Form.Group>             
                 <Form.Group >
                     <Form.Label>¿Entregado?</Form.Label>
                     <Form.Control as="select" ref={register()} name="Entregado">
@@ -105,7 +111,6 @@ export default function NuevoPozo() {
                     <option>No</option>
                     </Form.Control>
                 </Form.Group>
-               
                 <Form.Group>
                     <Form.Label>Fecha de Entrega</Form.Label>
                     <Form.Control  name="fechaEntregado" type="date" ref={register()}/>

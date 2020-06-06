@@ -94,6 +94,13 @@ export default function Edit() {
                     </Form.Text>
                   </Form.Group>
                   <Form.Group>
+                    <Form.Label>Frente de la Perforacion</Form.Label>
+                    <Form.Control  name="frente" type="text" ref={register()}/>
+                    <Form.Text className="text-muted">
+                    {errors.frente && <Alert variant="danger">Este campo es requerido</Alert>}
+                    </Form.Text>
+                  </Form.Group>
+                  <Form.Group>
                     <Form.Label>¿Perforación Finalizada?</Form.Label>
                     <Form.Control
                       as="select"
