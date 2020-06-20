@@ -34,7 +34,7 @@ export default function Edit() {
     return firestore
       .collection("Pozos")
       .doc(id)
-      .set(data)
+      .set(data, { merge: true })
       .then(() => history.push("/"));
   };
 
@@ -66,7 +66,7 @@ export default function Edit() {
                     </Form.Text>
                   </Form.Group>
                   <Form.Group>
-                    <Form.Label>Inicio de la Perforacion</Form.Label>
+                    <Form.Label>Metros de la Perforacion</Form.Label>
                     <Form.Control
                       name="metrosPerforado"
                       type="text"
@@ -80,7 +80,7 @@ export default function Edit() {
                     </Form.Text>
                   </Form.Group>
                   <Form.Group>
-                    <Form.Label>Metros de la Perforacion</Form.Label>
+                    <Form.Label>Inicio de la Perforacion</Form.Label>
                     <Form.Control
                       name="inicioPerforacion"
                       type="date"

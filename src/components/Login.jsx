@@ -11,7 +11,7 @@ export default function Login() {
   
   const onSubmit = async (data) => {
     await firebase.auth().signInWithEmailAndPassword(data.email, data.password)
-    history.push("/home");
+    history.push("/");
   };
 
   return (

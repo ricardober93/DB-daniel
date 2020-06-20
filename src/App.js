@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import firebaseL, { FirebaseContext } from '././firebase';
 import { Provider } from "react-redux";
 import firebase from "firebase/app";
 import "firebase/auth";
@@ -37,24 +37,13 @@ import {
 // Helper para asegurar rutas
 import { UserIsAuthenticated } from "./helper/Auth";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyD3TZwNsllwzCRA1ZxKeiajkOwseLPLCSQ",
-  authDomain: "app-daniel-5b0c3.firebaseapp.com",
-  databaseURL: "https://app-daniel-5b0c3.firebaseio.com",
-  projectId: "app-daniel-5b0c3",
-  storageBucket: "app-daniel-5b0c3.appspot.com",
-  messagingSenderId: "626694795495",
-  appId: "1:626694795495:web:1daed4e47f4f473669b242",
-  measurementId: "G-0YCPZ6QVQR",
-};
+
 
 const rrfConfig = {
   userProfile: "users",
   useFirestoreForProfile: true, // Firestore for Profile instead of Realtime DB
 };
 
-// Initialize firebase instance
-firebase.initializeApp(firebaseConfig);
 
 // Initialize other services on firebase instance
 firebase.firestore(); // <- needed if using firestore
@@ -82,6 +71,7 @@ const rrfProps = {
 
 function App() {
   return (
+   <FirebaseContext.Provider value={{ firebaseL }}>
     <Provider store={store}>
       <ReactReduxFirebaseProvider {...rrfProps}>
         <Router>
@@ -96,6 +86,7 @@ function App() {
         </Router>
       </ReactReduxFirebaseProvider>
     </Provider>
+    </FirebaseContext.Provider>
   );
 }
 
