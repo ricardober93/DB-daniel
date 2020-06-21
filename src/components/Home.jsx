@@ -1,10 +1,9 @@
 import React, {useState} from "react";
-import { Container, Table, Button, Row, Modal, Form } from "react-bootstrap";
+import { Container, Table, Button, Row, Fade, Form } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { useFirestoreConnect, useFirestore, useFirebase } from "react-redux-firebase";
+import { useFirestoreConnect, useFirestore } from "react-redux-firebase";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit, faTrashAlt, faUpload } from '@fortawesome/free-solid-svg-icons'
-import { useForm } from "react-hook-form";
+import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import { useHistory, Link } from "react-router-dom";
 // Search
  import Search from "./Search";
@@ -12,13 +11,11 @@ import { useHistory, Link } from "react-router-dom";
 
 export default function Home() {
   const [PozoBusqueda, setPozoBusqueda] = useState('')
-  const [lgShow, setLgShow] = useState(false);
+  const [Show, setShow] = useState(false);
+  const [link, setLink] = useState('');
   // const [limit, setLimit] = useState()
-   const [link, setLink] = useState('')
   let history = useHistory();
   const firestore = useFirestore()
-  const firebase = useFirebase()
-  const { register, handleSubmit, errors } = useForm();
   let busquedafn = [[ 'IdPozo', "==", PozoBusqueda ]]
   
 
@@ -53,20 +50,18 @@ export default function Home() {
     .then(() => history.push("/"));
 };
 
-  
-const onSubmitHandle = (data,e,id) => {
-  e.preventDefault();
-  console.log(id)
+const onSubmitHandle = (id) => {
+  // e.preventDefault()
+  console.log(id, link)
   return firestore
     .collection("Pozos")
     .doc(id)
-    .set({archivo: data.archivo}, { merge: true })
+    .set({archivo: link}, { merge: true })
     .then(() => {
-      setLgShow(true)
-      history.push("/")
+      setShow(false)
+      // history.push("/")
     });
 };
-
 
   return (
     <>
@@ -98,73 +93,63 @@ const onSubmitHandle = (data,e,id) => {
               </thead>
               <tbody>
                 {Pozos ? (
-                  Pozos.map((pozo) => (
-                    <tr key={pozo.IdPozo}>
+                  Pozos.map((pozo, index) => (
+                    <tr key={index}>
                       <td>
-                        <Link to={"/pozo/" + pozo.id}>
-                          {pozo.IdPozo}
-                        </Link>
+                        <Link to={"/pozo/" + pozo.id}>{pozo.IdPozo}</Link>
                       </td>
                       <td>{pozo.perforado}</td>
                       <td>{pozo.metrosPerforado}</td>
                       <td>{pozo.Entregado}</td>
                       <td>
                         {pozo.archivo ? (
-                          <><a
-                            href={pozo.archivo}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            Ver Archivo
-                          </a>
-                          <Button
-                          size="sm"
-                          className="ml-2"
-                          type="button"
-                          onClick={() => eliminararchivo(pozo.id)}
-                          variant="danger"
-                        > x </Button>
+                          <>
+                            <a
+                              href={pozo.archivo}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              Ver Archivo
+                            </a>
+                            <Button
+                              size="sm"
+                              className="ml-2"
+                              type="button"
+                              onClick={(e) => (eliminararchivo(pozo.id, e))}
+                              variant="danger"
+                            > x </Button>
                           </>
                         ) : (
-                          <>
-                            <Button size="sm" onClick={() => setLgShow(true)}>
-                              Guardar Documento
-                            </Button>
-                            <Modal
-                              size="lg"
-                              show={lgShow}
-                              onHide={() => setLgShow(false)}
-                              aria-labelledby="CambiarURLArchivo"
-                            >
-                              <Modal.Header closeButton>
-                                <Modal.Title id="CambiarURLArchivo">
-                                  Guardar link de google Drive
-                                </Modal.Title>
-                              </Modal.Header>
-                              <Modal.Body>
-                                <Form onSubmit={handleSubmit(onSubmitHandle(pozo.id))}>
-                                  <Form.Group>
-                                    <Form.Control
-                                      name="archivo"
-                                      type="text"
-                                      placeholder="link de drive google"
-                                      ref={register()}
-                                    />
-                                  </Form.Group>
-                                <Button variant="success" type="submit">
+                           <>
+                            <Fade in={Show}>
+                              <Form onSubmit={(e) => onSubmitHandle(pozo.id, e)}>
+                                <Form.Group>
+                                  <Form.Control
+                                    name="archivo"
+                                    type="text"
+                                    placeholder="link de drive google"
+                                    onChange={(e) => setLink(e.target.value)}
+                                  />
+                                </Form.Group>
+                                <Button variant="success" size="sm" type="submit">
                                   Guardar Link
                                 </Button>
-                                </Form>
-                              </Modal.Body>
-                            </Modal>
+                                <Button className="ml-2" variant="warning" size="sm" onClick={() => setShow(!Show)}>
+                                  Ocultar
+                                </Button>
+                              </Form>
+                            </Fade>
+                            <Fade in={!Show}>
+                            <Button size="sm" onClick={() => setShow(!Show)}>
+                              Guardar Documento
+                            </Button>
+                            </Fade>
                           </>
-                        )}
+                         ) }
                       </td>
                       <td>
                         <Button className="mr-2" variant="warning">
-                          {" "}
                           <Link to={"/edit/" + pozo.id}>
-                            {" "}
                             <FontAwesomeIcon size="xs" icon={faEdit} />
                           </Link>{" "}
                         </Button>
