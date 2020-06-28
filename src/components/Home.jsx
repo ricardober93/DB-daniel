@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { Container, Table, Button, Row, Fade, Form } from "react-bootstrap";
+import { Container, Table, Button, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useFirestoreConnect, useFirestore } from "react-redux-firebase";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -7,11 +7,11 @@ import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import { useHistory, Link } from "react-router-dom";
 // Search
  import Search from "./Search";
+import GuardarLink from "./GuardarLink";
 
 
 export default function Home() {
   const [PozoBusqueda, setPozoBusqueda] = useState('')
-  const [Show, setShow] = useState(false);
   const [link, setLink] = useState('');
   // const [limit, setLimit] = useState()
   let history = useHistory();
@@ -56,11 +56,7 @@ const onSubmitHandle = (id) => {
   return firestore
     .collection("Pozos")
     .doc(id)
-    .set({archivo: link}, { merge: true })
-    .then(() => {
-      setShow(false)
-      // history.push("/")
-    });
+    .set({archivo: link}, { merge: true });
 };
 
   return (
@@ -121,29 +117,7 @@ const onSubmitHandle = (id) => {
                           </>
                         ) : (
                            <>
-                            <Fade in={Show}>
-                              <Form onSubmit={(e) => onSubmitHandle(pozo.id, e)}>
-                                <Form.Group>
-                                  <Form.Control
-                                    name="archivo"
-                                    type="text"
-                                    placeholder="link de drive google"
-                                    onChange={(e) => setLink(e.target.value)}
-                                  />
-                                </Form.Group>
-                                <Button variant="success" size="sm" type="submit">
-                                  Guardar Link
-                                </Button>
-                                <Button className="ml-2" variant="warning" size="sm" onClick={() => setShow(!Show)}>
-                                  Ocultar
-                                </Button>
-                              </Form>
-                            </Fade>
-                            <Fade in={!Show}>
-                            <Button size="sm" onClick={() => setShow(!Show)}>
-                              Guardar Documento
-                            </Button>
-                            </Fade>
+                            <GuardarLink setLink={setLink} onSubmitHandle={onSubmitHandle} id={pozo.id} />
                           </>
                          ) }
                       </td>
